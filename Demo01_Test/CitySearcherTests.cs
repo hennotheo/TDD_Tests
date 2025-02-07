@@ -2,7 +2,7 @@
 
 namespace Demo01_Test;
 
-public class UnitTest1
+public class CitySearcherTests
 {
     private readonly string[] _testCities =
     [
@@ -36,7 +36,7 @@ public class UnitTest1
         List<string> results = citySearcher.SearchCities(search);
         List<string> expected = new List<string>(expectedResults);
 
-        Assert.Equal(expected.Count, results.Count);
+        Assert.Equal(expected, results);
     }
 
     [Theory]
@@ -49,7 +49,7 @@ public class UnitTest1
         List<string> results = citySearcher.SearchCities(search);
         List<string> expected = new List<string>(expectedResults);
 
-        Assert.Equal(expected.Count, results.Count);
+        Assert.Equal(expected, results);
     }
     
     [Theory]
@@ -60,6 +60,16 @@ public class UnitTest1
         List<string> results = citySearcher.SearchCities(search);
         List<string> expected = new List<string>(expectedResults);
 
-        Assert.Equal(expected.Count, results.Count);
+        Assert.Equal(expected, results);
+    }
+    
+    [Theory]
+    [InlineData("*")]
+    public void Test05_SearchResultsAll(string search)
+    {
+        CitySearcher citySearcher = new CitySearcher(_testCities);
+        List<string> results = citySearcher.SearchCities(search);
+
+        Assert.Equal(_testCities, results);
     }
 }
