@@ -15,11 +15,12 @@ public class UnitTest1
         "Tokyo",
         "Vienna",
         "Vancouver",
-        "Valencia"
+        "Valencia",
+        "Zurich"
     ];
 
     [Fact]
-    public void Test_SearchThrowNotFoundException()
+    public void Test01_SearchThrowNotFoundException()
     {
         CitySearcher citySearcher = new CitySearcher(_testCities);
         Assert.Throws<NotFoundException>(() => citySearcher.SearchCities("a"));
@@ -29,7 +30,7 @@ public class UnitTest1
     [InlineData("Va", "Vancouver", "Valencia")]
     [InlineData("Val", "Valencia")]
     [InlineData("Pa", "Paris")]
-    public void Test_SearchResultsStartWithExactChar(string search, params string[] expectedResults)
+    public void Test02_SearchResultsStartWithExactChar(string search, params string[] expectedResults)
     {
         CitySearcher citySearcher = new CitySearcher(_testCities);
         List<string> results = citySearcher.SearchCities(search);
@@ -42,7 +43,18 @@ public class UnitTest1
     [InlineData("Va", "Vancouver", "Valencia")]
     [InlineData("VA", "Vancouver", "Valencia")]
     [InlineData("va", "Vancouver", "Valencia")]
-    public void Test_SearchResultsCaseInsensitive(string search, params string[] expectedResults)
+    public void Test03_SearchResultsCaseInsensitive(string search, params string[] expectedResults)
+    {
+        CitySearcher citySearcher = new CitySearcher(_testCities);
+        List<string> results = citySearcher.SearchCities(search);
+        List<string> expected = new List<string>(expectedResults);
+
+        Assert.Equal(expected.Count, results.Count);
+    }
+    
+    [Theory]
+    [InlineData("ri", "Paris", "Zurich")]
+    public void Test04_SearchResultsContainsString(string search, params string[] expectedResults)
     {
         CitySearcher citySearcher = new CitySearcher(_testCities);
         List<string> results = citySearcher.SearchCities(search);
