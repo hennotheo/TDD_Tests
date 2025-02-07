@@ -24,7 +24,7 @@ public class UnitTest1
         CitySearcher citySearcher = new CitySearcher(_testCities);
         Assert.Throws<NotFoundException>(() => citySearcher.SearchCities("a"));
     }
-    
+
     [Theory]
     [InlineData("Va", "Vancouver", "Valencia")]
     [InlineData("Val", "Valencia")]
@@ -35,7 +35,20 @@ public class UnitTest1
         CitySearcher citySearcher = new CitySearcher(_testCities);
         List<string> results = citySearcher.SearchCities(search);
         List<string> expected = new List<string>(expectedResults);
-        
+
+        Assert.Equal(expected.Count, results.Count);
+    }
+
+    [Theory]
+    [InlineData("Va", "Vancouver", "Valencia")]
+    [InlineData("VA", "Vancouver", "Valencia")]
+    [InlineData("va", "Vancouver", "Valencia")]
+    public void Test_SearchResultsCaseInsensitive(string search, params string[] expectedResults)
+    {
+        CitySearcher citySearcher = new CitySearcher(_testCities);
+        List<string> results = citySearcher.SearchCities(search);
+        List<string> expected = new List<string>(expectedResults);
+
         Assert.Equal(expected.Count, results.Count);
     }
 }
