@@ -14,6 +14,6 @@ public class CitySearcher
         if(search.Length < 2)
             throw new NotFoundException("Search string must be at least 2 characters long.");
 
-        throw new NotImplementedException();
+        return _cities.FindAll((city) => city.StartsWith(search));
     }
 }
