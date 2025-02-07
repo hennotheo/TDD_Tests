@@ -12,14 +12,30 @@ public class UnitTest1
         "New York",
         "Paris",
         "Rome",
-        "Tokyo"
+        "Tokyo",
+        "Vienna",
+        "Vancouver",
+        "Valencia"
     ];
-    
-    [Theory]
-    [InlineData("a")]
-    public void Test_SearchThrowNotFoundException(string search)
+
+    [Fact]
+    public void Test_SearchThrowNotFoundException()
     {
         CitySearcher citySearcher = new CitySearcher(_testCities);
-        Assert.Throws<NotFoundException>(() => citySearcher.SearchCities(search));
+        Assert.Throws<NotFoundException>(() => citySearcher.SearchCities("a"));
+    }
+    
+    [Theory]
+    [InlineData("Va")]
+    [InlineData("Val")]
+    [InlineData("Pa")]
+    [InlineData("va")]
+    public void Test_SearchResultsStartWithExactChar(string search)
+    {
+        CitySearcher citySearcher = new CitySearcher(_testCities);
+        List<string> results = citySearcher.SearchCities(search);
+        Assert.True(
+            results.TrueForAll(
+                city => city.StartsWith(search, StringComparison.Ordinal)));
     }
 }
