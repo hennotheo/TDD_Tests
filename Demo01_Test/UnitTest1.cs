@@ -29,7 +29,6 @@ public class UnitTest1
     [InlineData("Va", "Vancouver", "Valencia")]
     [InlineData("Val", "Valencia")]
     [InlineData("Pa", "Paris")]
-    [InlineData("va")]
     public void Test_SearchResultsStartWithExactChar(string search, params string[] expectedResults)
     {
         CitySearcher citySearcher = new CitySearcher(_testCities);
