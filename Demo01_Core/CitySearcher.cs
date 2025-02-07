@@ -2,7 +2,7 @@
 
 public class CitySearcher
 {
-    private List<string> _cities;
+    private readonly List<string> _cities;
     
     public CitySearcher(IEnumerable<string> cities)
     {
@@ -14,6 +14,7 @@ public class CitySearcher
         if(search.Length < 2)
             throw new NotFoundException("Search string must be at least 2 characters long.");
 
-        return _cities.FindAll((city) => city.StartsWith(search));
+        return _cities.FindAll(
+            (city) => city.StartsWith(search));
     }
 }
