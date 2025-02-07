@@ -3,7 +3,7 @@
 public class NotFoundException : Exception
 {
     public NotFoundException(string message) : base(message) { }
-    public NotFoundException() : base("") { }
+    public NotFoundException() : base("Not found exception") { }
 }
 
 public class CitySearcher
@@ -17,6 +17,11 @@ public class CitySearcher
     
     public List<string> SearchCities(string search)
     {
+        if(search.Length < 2)
+        {
+            throw new NotFoundException("Search string must be at least 2 characters long.");
+        }
+
         throw new NotImplementedException();
     }
 }
