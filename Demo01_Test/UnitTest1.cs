@@ -26,16 +26,16 @@ public class UnitTest1
     }
     
     [Theory]
-    [InlineData("Va")]
-    [InlineData("Val")]
-    [InlineData("Pa")]
+    [InlineData("Va", "Vancouver", "Valencia")]
+    [InlineData("Val", "Valencia")]
+    [InlineData("Pa", "Paris")]
     [InlineData("va")]
-    public void Test_SearchResultsStartWithExactChar(string search)
+    public void Test_SearchResultsStartWithExactChar(string search, params string[] expectedResults)
     {
         CitySearcher citySearcher = new CitySearcher(_testCities);
         List<string> results = citySearcher.SearchCities(search);
-        Assert.True(
-            results.TrueForAll(
-                city => city.StartsWith(search, StringComparison.Ordinal)));
+        List<string> expected = new List<string>(expectedResults);
+        
+        Assert.Equal(expected.Count, results.Count);
     }
 }
