@@ -11,6 +11,9 @@ public class CitySearcher
     
     public List<string> SearchCities(string search)
     {
+        if(search == "*")
+            return _cities;
+        
         if(search.Length < 2)
             throw new NotFoundException("Search string must be at least 2 characters long.");
 
